@@ -8,21 +8,25 @@ class Transaction {
 
   @Column()
   title: string;
- 
+
   @Column()
   type: 'income' | 'outcome';
-  
+
   @Column('decimal')
   value:  Number;
-  
+
   /* Relacionamento */
-  @ManyToOne(() => Category)
+ /*  @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id'})
-  category: Category //cria categoria que é um objeto categoria
+  category: Category //cria categoria que é um objeto categoria */
+
+  @ManyToOne(() => Category, category => category.transaction, { eager: true })
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
 
   @Column()
   category_id: string;
-  
+
   @CreateDateColumn()
   created_at: Date;
 
